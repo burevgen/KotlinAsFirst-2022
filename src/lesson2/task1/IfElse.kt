@@ -4,6 +4,7 @@ package lesson2.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
@@ -81,7 +82,13 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double =
+    when {
+        (v1 * t1 >= ((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2) -> (((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2 / v1)
+        (v1 * t1 < ((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2) && ((v1 * t1) + (v2 * t2) >= ((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2) -> (t1 + (((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2 - t1 * v1) / v2)
+        else -> (t1 + t2 + (((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2 - t1 * v1 - t2 * v2) / v3)
+    }
+
 
 /**
  * Простая (2 балла)
@@ -96,7 +103,15 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int =
+    when {
+        ((kingX != rookX1) && (kingY != rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 0
+        ((kingX == rookX1) || (kingY == rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 1
+        ((kingX == rookX2) || (kingY == rookY2)) && ((kingX != rookX1) && (kingY != rookY1)) -> 2
+        else -> 3
+
+
+    }
 
 /**
  * Простая (2 балла)
@@ -122,7 +137,21 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int =
+    when {
+        a.pow(2) > (b.pow(2) + c.pow(2)) && (a < b + c) -> 2
+        a.pow(2) < (b.pow(2) + c.pow(2)) && (a >= b && a >= c) && (a < b + c) -> 0
+        b.pow(2) > (a.pow(2) + c.pow(2)) && (b < a + c) -> 2
+        b.pow(2) < (a.pow(2) + c.pow(2)) && (b >= a && b >= c) && (b < a + c) -> 0
+        c.pow(2) > (b.pow(2) + a.pow(2)) && (c < a + b) -> 2
+        c.pow(2) < (b.pow(2) + a.pow(2)) && (c >= b && c >= a) && (c < b + a) -> 0
+        a.pow(2) == b.pow(2) + c.pow(2) -> 1
+        b.pow(2) == a.pow(2) + c.pow(2) -> 1
+        c.pow(2) == b.pow(2) + a.pow(2) -> 1
+        else -> -1
+
+
+    }
 
 /**
  * Средняя (3 балла)
@@ -132,4 +161,12 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+    when {
+        b >= d && d >= a && a >= c -> d - a
+        b > d && a > d -> -1
+        d >= b && b >= c && c >= a -> b - c
+        d >= b && c > b -> -1
+        d > b && a >= c -> b - a
+        else -> d - c
+    }
