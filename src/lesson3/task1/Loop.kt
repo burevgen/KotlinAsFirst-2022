@@ -2,6 +2,8 @@
 
 package lesson3.task1
 
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -89,7 +91,9 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int =
+    if (n <= 2) 1 else fib(n - 1) + fib(n - 2)
+
 
 /**
  * Простая (2 балла)
@@ -166,7 +170,19 @@ fun collatzSteps(x: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var a = 0
+    var k = 0
+    for (k in min(n, m)..m * n) {
+        if (k % m == 0 && k % n == 0) {
+            a = k
+            break
+
+
+        }
+    }
+    return a
+}
 
 /**
  * Средняя (3 балла)
@@ -175,7 +191,18 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var a = 0
+    var k = 0
+    for (a in 2..max(m, n)) {
+        if (m % a == 0 && n % a == 0) {
+            return false
+            break
+        }
+    }
+    return true
+
+}
 
 /**
  * Средняя (3 балла)
@@ -184,7 +211,17 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var t = n
+    var a = 0
+    var b = 0
+    while (t != 0) {
+        a = t % 10
+        b = b * 10 + a
+        t = t / 10
+    }
+    return b
+}
 
 /**
  * Средняя (3 балла)
@@ -205,7 +242,79 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    val j = 9
+    val i = 8
+    val h = 7
+    val g = 6
+    val f = 5
+    val e = 4
+    val d = 3
+    val c = 2
+    val b = 1
+    val a = 0
+    var aa = 0
+    var bb = 0
+    var cc = 0
+    var dd = 0
+    var ee = 0
+    var ff = 0
+    var gg = 0
+    var hh = 0
+    var ii = 0
+    var jj = 0
+    var t = 0
+    var k = n
+    if (k == a || k == b || k == c || k == d || k == e || k == f || k == g || k == h || k == i || k == j) {
+        return false
+    } else {
+        while (k > 0) {
+            t = k % 10
+            k /= 10
+            if (t == a) {
+                aa++
+            }
+            if (t == b) {
+                bb++
+            }
+            if (t == c) {
+                cc++
+            }
+            if (t == d) {
+                dd++
+            }
+            if (t == e) {
+                ee++
+            }
+            if (t == f) {
+                ff++
+            }
+            if (t == g) {
+                gg++
+            }
+            if (t == h) {
+                hh++
+            }
+            if (t == i) {
+                ii++
+            }
+            if (t == j) {
+                jj++
+            }
+        }
+    }
+    return (aa > 0 && bb > 0) || (aa > 0 && cc > 0) || (aa > 0 && dd > 0) || (aa > 0 && ee > 0) || (aa > 0 && ff > 0) || (aa > 0 && gg > 0) || (aa > 0 && hh > 0) || (aa > 0 && ii > 0) || (aa > 0 && jj > 0)
+            || (bb > 0 && cc > 0) || (bb > 0 && dd > 0) || (bb > 0 && ee > 0) || (bb > 0 && ff > 0) || (bb > 0 && gg > 0) || (bb > 0 && hh > 0) || (bb > 0 && ii > 0) || (bb > 0 && jj > 0)
+            || (cc > 0 && dd > 0) || (cc > 0 && ee > 0) || (cc > 0 && ff > 0) || (cc > 0 && gg > 0) || (cc > 0 && hh > 0) || (cc > 0 && ii > 0) || (cc > 0 && jj > 0)
+            || (dd > 0 && ee > 0) || (dd > 0 && ff > 0) || (dd > 0 && gg > 0) || (dd > 0 && hh > 0) || (dd > 0 && ii > 0) || (dd > 0 && jj > 0)
+            || (ee > 0 && ff > 0) || (ee > 0 && gg > 0) || (ee > 0 && hh > 0) || (ee > 0 && ii > 0) || (ee > 0 && jj > 0)
+            || (ff > 0 && gg > 0) || (ff > 0 && hh > 0) || (ff > 0 && ii > 0) || (ff > 0 && jj > 0)
+            || (gg > 0 && hh > 0) || (gg > 0 && ii > 0) || (gg > 0 && jj > 0)
+            || (hh > 0 && ii > 0) || (hh > 0 && jj > 0)
+            || (ii > 0 && jj > 0)
+
+
+}
 
 /**
  * Средняя (4 балла)
