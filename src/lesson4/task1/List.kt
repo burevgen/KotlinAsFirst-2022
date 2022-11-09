@@ -184,7 +184,21 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var a = n
+    var m = mutableListOf<Int>()
+    var b = 0
+    while (a > 1) {
+        for (b in 2..a) {
+            if (a % b == 0) {
+                m.add(b)
+                a = a / b
+                break
+            }
+        }
+    }
+    return m.sorted()
+}
 
 /**
  * Сложная (4 балла)
@@ -193,7 +207,21 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    var a = n
+    var m = mutableListOf<Int>()
+    var b = 0
+    while (a > 1) {
+        for (b in 2..a) {
+            if (a % b == 0) {
+                m.add(b)
+                a /= b
+                break
+            }
+        }
+    }
+    return m.joinToString(separator = "*")
+}
 
 /**
  * Средняя (3 балла)
@@ -248,7 +276,39 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var a = n
+    val b = listOf<String>("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val c = listOf<String>("X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val d = listOf<String>("C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    val e = listOf<String>("M")
+    val result = mutableListOf<String>()
+    if (a / 1000 > 0) {
+        while (a > 999) {
+            result.add(e[0])
+            a = a - 1000
+        }
+    }
+    if (a / 100 > 0) {
+        while (a > 99) {
+            result.add(d[a / 100 - 1])
+            a = a % 100
+        }
+    }
+
+    if (a / 10 > 0) {
+        while (a > 9) {
+            result.add(c[a / 10 - 1])
+            a = a % 10
+        }
+
+    }
+    if (a >0) {
+        result.add(b[a-1])
+    }
+    return result.joinToString(separator = "")
+}
+
 
 /**
  * Очень сложная (7 баллов)
@@ -257,4 +317,104 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    var a = n
+    val b = listOf<String>("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val c = listOf<String>(
+        "одиннадцать",
+        "двенадцать",
+        "тринадцать",
+        "четырнадцать",
+        "пятнадцать",
+        "шестнадцать",
+        "семнадцать",
+        "восемнадцать",
+        "девятнадцать"
+    )
+    val d = listOf<String>(
+        "двадцать",
+        "тридцать",
+        "сорок",
+        "пятьдесят",
+        "шестьдесят",
+        "семьдесят",
+        "восемьдесят",
+        "девяносто"
+    )
+    val e = listOf<String>(
+        "сто",
+        "двести",
+        "триста",
+        "четыреста",
+        "пятьсот",
+        "шетьсот",
+        "семьсот",
+        "восемьсот",
+        "девятьсот"
+    )
+    val g = listOf<String>(
+        "тысяч",
+        "одна тысяча",
+        "две тысячи",
+        "три тысячи",
+        "четыре тысячи",
+        "пять тысяч",
+        "шесть тысяч",
+        "семь тысяч",
+        "восемь тысяч",
+        "девять тысяч"
+    )
+    val h = listOf<String>(
+        "одиннадцать тысяч",
+        "двенадцать тысяч",
+        "тринадцать тысяч",
+        "четырнадцать тысяч",
+        "пятнадцать тысяч",
+        "шестнадцать тысяч",
+        "семнадцать тысяч",
+        "восемнадцать тысяч",
+        "девятнадцать тысяч"
+    )
+
+    val f = listOf<String>("тысяч")
+    val result = mutableListOf<String>()
+    if (a > 99999) {
+        result.add(e[a / 100000 - 1])
+        a = a % 100000
+        if (a < 1000) {
+            result.add(f[0])
+        }
+    }
+    if (a > 19999) {
+        result.add(d[a / 10000 - 2])
+        a = a % 10000
+        if (a < 1000) {
+            result.add(f[1])
+        }
+    }
+    if (a > 9999) {
+        result.add(h[(a % 10000) / 1000 - 1])
+        a = a % 1000
+    }
+    if (a > 999) {
+        result.add(g[a / 1000])
+        a = a % 1000
+    }
+
+    if (a > 99) {
+        result.add(e[a / 100 - 1])
+        a = a % 100
+    }
+    if (a > 19) {
+        result.add(d[a / 10 - 2])
+        a = a % 10
+    }
+    if (a > 9) {
+        result.add(c[a % 10 - 1])
+        a = 0
+    }
+    if (a > 0) {
+        result.add(b[a - 1])
+    }
+    return result.joinToString(separator = " ")
+}
