@@ -126,7 +126,7 @@ fun maxDivisor(n: Int): Int {
     if (n % 2 == 0) {
         t = n / 2
     } else {
-        for (a in sqrt(n.toDouble()).toInt() downTo 3 step 2) {
+        for (a in 3.. sqrt(n.toDouble()).toInt() step 2) {
             if (n % a == 0) {
                 t = n / a
                 break
