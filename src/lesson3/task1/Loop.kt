@@ -2,6 +2,8 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
@@ -77,7 +79,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
 fun digitNumber(n: Int): Int {
     var k = 0
     var t = n
-    while (t > 9) {
+    while (abs(t) > 9) {
         t = t / 10
         k += 1
     }
@@ -91,8 +93,7 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int =
-    if (n <= 2) 1 else fib(n - 1) + fib(n - 2)
+fun fib(n: Int): Int = TODO()
 
 
 /**
@@ -101,16 +102,18 @@ fun fib(n: Int): Int =
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var a = 0
-    var t = 0
-    for (a in 2..n) {
-        if (n % a == 0) {
-            t = a
-            break
-
+    var k = n
+    if (n % 2 == 0) {
+        k = 2
+    } else {
+        for (a in 3..sqrt(n.toDouble()).toInt() step 2) {
+            if (n % a == 0) {
+                k = a
+                break
+            }
         }
     }
-    return t
+    return k
 }
 
 /**
@@ -119,13 +122,16 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-
     var t = 1
-    for (a in n - 1 downTo 2) {
-        if (n % a == 0) {
-            t = a
-            break
+    if (n % 2 == 0) {
+        t = n / 2
+    } else {
+        for (a in sqrt(n.toDouble()).toInt() downTo 3 step 2) {
+            if (n % a == 0) {
+                t = n / a
+                break
 
+            }
         }
     }
     return t
@@ -347,7 +353,24 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var a = 0
+    var b = 0
+    var c = 0
+    while (a < n) {
+        b++
+        c = sqr(b)
+        a += digitNumber(c)
+        if (a >= n) {
+            break
+        }
+    }
+    if (a != n) {
+        a = a - 1
+        c /= 10
+    }
+    return (c % 10)
+}
 
 /**
  * Сложная (5 баллов)
@@ -358,4 +381,21 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var a = 0
+    var b = 0
+    var c = 0
+    while (a != n) {
+        b++
+        c = fib(b)
+        a = digitNumber(c) + a
+        if (a > n) {
+            break
+        }
+    }
+    while (a != n) {
+        a = a - 1
+        c /= 10
+    }
+    return (c % 10)
+}

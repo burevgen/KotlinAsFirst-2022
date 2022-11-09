@@ -4,6 +4,7 @@ package lesson2.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -79,15 +80,18 @@ fun ageDescription(age: Int): String = TODO()
  * Определить, за какое время он одолел первую половину пути?
  */
 fun timeForHalfWay(
-    t1: Double, v1: Double,
-    t2: Double, v2: Double,
-    t3: Double, v3: Double
-): Double =
+    t1: Double, v1: Double, t2: Double, v2: Double, t3: Double, v3: Double
+): Double {
+    var a = v1 * t1
+    var b = t2 * v2
+    var c = t3 * v3
     when {
-        (v1 * t1 >= ((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2) -> (((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2 / v1)
-        (v1 * t1 < ((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2) && ((v1 * t1) + (v2 * t2) >= ((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2) -> (t1 + (((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2 - t1 * v1) / v2)
-        else -> (t1 + t2 + (((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2 - t1 * v1 - t2 * v2) / v3)
+        a >= (a + b + c) / 2 -> return (a + b + c) / 2 / v1
+        a < (a + b + c) / 2 && a + b >= (a + b + c) / 2 -> return (t1 + ((a + b + c) / 2 - a) / v2)
+        else -> return (t1 + t2 + ((a + b + c) / 2 - a - b) / v3)
     }
+
+}
 
 
 /**
@@ -100,18 +104,15 @@ fun timeForHalfWay(
  * Считать, что ладьи не могут загораживать друг друга
  */
 fun whichRookThreatens(
-    kingX: Int, kingY: Int,
-    rookX1: Int, rookY1: Int,
-    rookX2: Int, rookY2: Int
-): Int =
-    when {
-        ((kingX != rookX1) && (kingY != rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 0
-        ((kingX == rookX1) || (kingY == rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 1
-        ((kingX == rookX2) || (kingY == rookY2)) && ((kingX != rookX1) && (kingY != rookY1)) -> 2
-        else -> 3
+    kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2: Int, rookY2: Int
+): Int = when {
+    ((kingX != rookX1) && (kingY != rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 0
+    ((kingX == rookX1) || (kingY == rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 1
+    ((kingX == rookX2) || (kingY == rookY2)) && ((kingX != rookX1) && (kingY != rookY1)) -> 2
+    else -> 3
 
 
-    }
+}
 
 /**
  * Простая (2 балла)
@@ -124,10 +125,9 @@ fun whichRookThreatens(
  * Считать, что ладья и слон не могут загораживать друг друга.
  */
 fun rookOrBishopThreatens(
-    kingX: Int, kingY: Int,
-    rookX: Int, rookY: Int,
-    bishopX: Int, bishopY: Int
+    kingX: Int, kingY: Int, rookX: Int, rookY: Int, bishopX: Int, bishopY: Int
 ): Int = TODO()
+
 
 /**
  * Простая (2 балла)
@@ -137,21 +137,19 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int =
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val max = max(a, max(b, c))
+    val min = min(a, min(b, c))
+    val m = a + b + c - max - min
+    var k = 0
     when {
-        a.pow(2) > (b.pow(2) + c.pow(2)) && (a < b + c) -> 2
-        a.pow(2) < (b.pow(2) + c.pow(2)) && (a >= b && a >= c) && (a < b + c) -> 0
-        b.pow(2) > (a.pow(2) + c.pow(2)) && (b < a + c) -> 2
-        b.pow(2) < (a.pow(2) + c.pow(2)) && (b >= a && b >= c) && (b < a + c) -> 0
-        c.pow(2) > (b.pow(2) + a.pow(2)) && (c < a + b) -> 2
-        c.pow(2) < (b.pow(2) + a.pow(2)) && (c >= b && c >= a) && (c < b + a) -> 0
-        a.pow(2) == b.pow(2) + c.pow(2) -> 1
-        b.pow(2) == a.pow(2) + c.pow(2) -> 1
-        c.pow(2) == b.pow(2) + a.pow(2) -> 1
-        else -> -1
-
-
+        max.pow(2) > (m.pow(2) + min.pow(2)) && min + m > max -> k = 2
+        max.pow(2) < (m.pow(2) + min.pow(2)) && min + m > max -> k = 0
+        max.pow(2) == (m.pow(2) + min.pow(2)) && min + m > max -> k = 1
+        else -> k = -1
     }
+    return k
+}
 
 /**
  * Средняя (3 балла)
@@ -161,12 +159,19 @@ fun triangleKind(a: Double, b: Double, c: Double): Int =
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    val max1 = max(b, d)
+    val max2 = max(a, c)
+    val min1 = min(b, d)
+    val min2 = min(a, c)
+    var k = 0
     when {
-        b >= d && d >= a && a >= c -> d - a
-        b > d && a > d -> -1
-        d >= b && b >= c && c >= a -> b - c
-        d >= b && c > b -> -1
-        d > b && a >= c -> b - a
-        else -> d - c
+        max1 - min2 == b - a -> k = d - c
+        max1 - min2 == d - c -> k = b - a
+        max2 > min1 -> k = -1
+        max2 == min1 -> k = 0
+        (max1 == b) && (max2 == a) -> k = min1 - max2
+        else -> k = min1 - max2
     }
+    return k
+}
