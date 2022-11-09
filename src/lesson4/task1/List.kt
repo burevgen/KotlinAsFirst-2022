@@ -408,7 +408,7 @@ fun russian(n: Int): String {
         result.add(d[a / 10 - 1])
         a = a % 10
     }
-    if (a > 11) {
+    if (a > 10) {
         result.add(c[a % 10 - 1])
         a = 0
     }
