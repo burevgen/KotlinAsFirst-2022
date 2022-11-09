@@ -389,7 +389,7 @@ fun russian(n: Int): String {
         result.add(d[a / 10000 - 2])
         a = a % 10000
         if (a < 1000) {
-            result.add(f[1])
+            result.add(f[0])
         }
     }
     if (a > 9999) {
