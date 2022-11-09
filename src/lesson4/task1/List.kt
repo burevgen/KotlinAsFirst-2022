@@ -303,8 +303,8 @@ fun roman(n: Int): String {
         }
 
     }
-    if (a >0) {
-        result.add(b[a-1])
+    if (a > 0) {
+        result.add(b[a - 1])
     }
     return result.joinToString(separator = "")
 }
@@ -332,6 +332,7 @@ fun russian(n: Int): String {
         "девятнадцать"
     )
     val d = listOf<String>(
+        "десять",
         "двадцать",
         "тридцать",
         "сорок",
@@ -364,18 +365,6 @@ fun russian(n: Int): String {
         "восемь тысяч",
         "девять тысяч"
     )
-    val h = listOf<String>(
-        "одиннадцать тысяч",
-        "двенадцать тысяч",
-        "тринадцать тысяч",
-        "четырнадцать тысяч",
-        "пятнадцать тысяч",
-        "шестнадцать тысяч",
-        "семнадцать тысяч",
-        "восемнадцать тысяч",
-        "девятнадцать тысяч"
-    )
-
     val f = listOf<String>("тысяч")
     val result = mutableListOf<String>()
     if (a > 99999) {
@@ -386,15 +375,18 @@ fun russian(n: Int): String {
         }
     }
     if (a > 19999) {
-        result.add(d[a / 10000 - 2])
+        result.add(d[a / 10000 - 1])
         a = a % 10000
         if (a < 1000) {
             result.add(f[0])
         }
     }
-    if (a > 9999) {
-        result.add(h[(a % 10000) / 1000 - 1])
+    if (a > 10999) {
+        result.add(c[(a % 10000) / 1000 - 1])
         a = a % 1000
+        if (a < 1000) {
+            result.add(f[0])
+        }
     }
     if (a > 999) {
         result.add(g[a / 1000])
@@ -406,7 +398,7 @@ fun russian(n: Int): String {
         a = a % 100
     }
     if (a > 19) {
-        result.add(d[a / 10 - 2])
+        result.add(d[a / 10 - 1])
         a = a % 10
     }
     if (a > 9) {
