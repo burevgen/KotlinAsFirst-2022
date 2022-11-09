@@ -61,12 +61,11 @@ fun isPerfect(n: Int): Boolean {
  *
  * Найти число вхождений цифры m в число n
  */
-fun digitCountInNumber(n: Int, m: Int): Int =
-    when {
-        n == m -> 1
-        n < 10 -> 0
-        else -> digitCountInNumber(n / 10, m) + digitCountInNumber(n % 10, m)
-    }
+fun digitCountInNumber(n: Int, m: Int): Int = when {
+    n == m -> 1
+    n < 10 -> 0
+    else -> digitCountInNumber(n / 10, m) + digitCountInNumber(n % 10, m)
+}
 
 /**
  * Простая (2 балла)
@@ -93,7 +92,17 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var a = 1
+    var b = 1
+    var c = 0
+    for (k in 3..n) {
+        c = b
+        b = b + a
+        a = c
+    }
+    return b
+}
 
 
 /**
@@ -126,7 +135,7 @@ fun maxDivisor(n: Int): Int {
     if (n % 2 == 0) {
         t = n / 2
     } else {
-        for (a in 3.. sqrt(n.toDouble()).toInt() step 2) {
+        for (a in 3..sqrt(n.toDouble()).toInt() step 2) {
             if (n % a == 0) {
                 t = n / a
                 break
@@ -297,15 +306,7 @@ fun hasDifferentDigits(n: Int): Boolean {
             }
         }
     }
-    return (aa > 0 && bb > 0) || (aa > 0 && cc > 0) || (aa > 0 && dd > 0) || (aa > 0 && ee > 0) || (aa > 0 && ff > 0) || (aa > 0 && gg > 0) || (aa > 0 && hh > 0) || (aa > 0 && ii > 0) || (aa > 0 && jj > 0)
-            || (bb > 0 && cc > 0) || (bb > 0 && dd > 0) || (bb > 0 && ee > 0) || (bb > 0 && ff > 0) || (bb > 0 && gg > 0) || (bb > 0 && hh > 0) || (bb > 0 && ii > 0) || (bb > 0 && jj > 0)
-            || (cc > 0 && dd > 0) || (cc > 0 && ee > 0) || (cc > 0 && ff > 0) || (cc > 0 && gg > 0) || (cc > 0 && hh > 0) || (cc > 0 && ii > 0) || (cc > 0 && jj > 0)
-            || (dd > 0 && ee > 0) || (dd > 0 && ff > 0) || (dd > 0 && gg > 0) || (dd > 0 && hh > 0) || (dd > 0 && ii > 0) || (dd > 0 && jj > 0)
-            || (ee > 0 && ff > 0) || (ee > 0 && gg > 0) || (ee > 0 && hh > 0) || (ee > 0 && ii > 0) || (ee > 0 && jj > 0)
-            || (ff > 0 && gg > 0) || (ff > 0 && hh > 0) || (ff > 0 && ii > 0) || (ff > 0 && jj > 0)
-            || (gg > 0 && hh > 0) || (gg > 0 && ii > 0) || (gg > 0 && jj > 0)
-            || (hh > 0 && ii > 0) || (hh > 0 && jj > 0)
-            || (ii > 0 && jj > 0)
+    return (aa > 0 && bb > 0) || (aa > 0 && cc > 0) || (aa > 0 && dd > 0) || (aa > 0 && ee > 0) || (aa > 0 && ff > 0) || (aa > 0 && gg > 0) || (aa > 0 && hh > 0) || (aa > 0 && ii > 0) || (aa > 0 && jj > 0) || (bb > 0 && cc > 0) || (bb > 0 && dd > 0) || (bb > 0 && ee > 0) || (bb > 0 && ff > 0) || (bb > 0 && gg > 0) || (bb > 0 && hh > 0) || (bb > 0 && ii > 0) || (bb > 0 && jj > 0) || (cc > 0 && dd > 0) || (cc > 0 && ee > 0) || (cc > 0 && ff > 0) || (cc > 0 && gg > 0) || (cc > 0 && hh > 0) || (cc > 0 && ii > 0) || (cc > 0 && jj > 0) || (dd > 0 && ee > 0) || (dd > 0 && ff > 0) || (dd > 0 && gg > 0) || (dd > 0 && hh > 0) || (dd > 0 && ii > 0) || (dd > 0 && jj > 0) || (ee > 0 && ff > 0) || (ee > 0 && gg > 0) || (ee > 0 && hh > 0) || (ee > 0 && ii > 0) || (ee > 0 && jj > 0) || (ff > 0 && gg > 0) || (ff > 0 && hh > 0) || (ff > 0 && ii > 0) || (ff > 0 && jj > 0) || (gg > 0 && hh > 0) || (gg > 0 && ii > 0) || (gg > 0 && jj > 0) || (hh > 0 && ii > 0) || (hh > 0 && jj > 0) || (ii > 0 && jj > 0)
 
 
 }
@@ -373,17 +374,19 @@ fun fibSequenceDigit(n: Int): Int {
     var a = 0
     var b = 0
     var c = 0
-    while (a != n) {
-        b++
+    while (a < n) {
+        b = b + 1
         c = fib(b)
-        a = digitNumber(c) + a
-        if (a > n) {
+        a = a + digitNumber(c)
+        if (n <= a) {
             break
         }
     }
-    while (a != n) {
+    while (a > n) {
         a = a - 1
         c /= 10
     }
     return (c % 10)
 }
+
+
