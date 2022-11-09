@@ -388,6 +388,13 @@ fun russian(n: Int): String {
             result.add(f[0])
         }
     }
+    if (a > 9999 && a < 11000) {
+        result.add(d[a / 10000 - 1])
+        a = a % 10000
+        if (a < 1000) {
+            result.add(f[0])
+        }
+    }
     if (a > 999) {
         result.add(g[a / 1000])
         a = a % 1000
@@ -397,11 +404,11 @@ fun russian(n: Int): String {
         result.add(e[a / 100 - 1])
         a = a % 100
     }
-    if (a > 19) {
+    if (a > 19 || a == 10) {
         result.add(d[a / 10 - 1])
         a = a % 10
     }
-    if (a > 9) {
+    if (a > 11) {
         result.add(c[a % 10 - 1])
         a = 0
     }
