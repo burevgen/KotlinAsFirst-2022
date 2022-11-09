@@ -79,12 +79,7 @@ fun removeFillerWords(
  *
  * Для заданного текста `text` построить множество встречающихся в нем слов
  */
-fun buildWordSet(text: List<String>): MutableSet<String> {
-    val res = mutableSetOf<String>()
-    for (word in text) res.add(word)
-    return res
-}
-
+fun buildWordSet(text: List<String>): MutableSet<String> = TODO()
 
 /**
  * Простая (2 балла)
@@ -116,8 +111,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean =
-    val
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
 /**
  * Простая (2 балла)
  *
