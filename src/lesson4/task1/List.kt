@@ -277,34 +277,34 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var a = n
-    val b = listOf<String>("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
-    val c = listOf<String>("X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
-    val d = listOf<String>("C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
-    val e = listOf<String>("M")
+    var k = n
+    val Units = listOf<String>("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val Dozens = listOf<String>("X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val Hundreds = listOf<String>("C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    val Thousands = listOf<String>("M")
     val result = mutableListOf<String>()
-    if (a / 1000 > 0) {
-        while (a > 999) {
-            result.add(e[0])
-            a = a - 1000
+    if (k / 1000 > 0) {
+        while (k > 999) {
+            result.add(Thousands[0])
+            k = k - 1000
         }
     }
-    if (a / 100 > 0) {
-        while (a > 99) {
-            result.add(d[a / 100 - 1])
-            a = a % 100
+    if (k / 100 > 0) {
+        while (k > 99) {
+            result.add(Hundreds[k / 100 - 1])
+            k = k % 100
         }
     }
 
-    if (a / 10 > 0) {
-        while (a > 9) {
-            result.add(c[a / 10 - 1])
-            a = a % 10
+    if (k / 10 > 0) {
+        while (k > 9) {
+            result.add(Dozens[k / 10 - 1])
+            k = k % 10
         }
 
     }
-    if (a > 0) {
-        result.add(b[a - 1])
+    if (k > 0) {
+        result.add(Units[k - 1])
     }
     return result.joinToString(separator = "")
 }
@@ -319,8 +319,8 @@ fun roman(n: Int): String {
  */
 fun russian(n: Int): String {
     var a = n
-    val b = listOf<String>("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-    val c = listOf<String>(
+    val Units = listOf<String>("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val Elevennineteen = listOf<String>(
         "одиннадцать",
         "двенадцать",
         "тринадцать",
@@ -331,7 +331,7 @@ fun russian(n: Int): String {
         "восемнадцать",
         "девятнадцать"
     )
-    val d = listOf<String>(
+    val Dozens = listOf<String>(
         "десять",
         "двадцать",
         "тридцать",
@@ -342,7 +342,7 @@ fun russian(n: Int): String {
         "восемьдесят",
         "девяносто"
     )
-    val e = listOf<String>(
+    val Hundreds = listOf<String>(
         "сто",
         "двести",
         "триста",
@@ -353,7 +353,7 @@ fun russian(n: Int): String {
         "восемьсот",
         "девятьсот"
     )
-    val g = listOf<String>(
+    val Thousands = listOf<String>(
         "тысяч",
         "одна тысяча",
         "две тысячи",
@@ -368,52 +368,52 @@ fun russian(n: Int): String {
     val f = listOf<String>("тысяч")
     val result = mutableListOf<String>()
     if (a > 99999) {
-        result.add(e[a / 100000 - 1])
+        result.add(Hundreds[a / 100000 - 1])
         a = a % 100000
         if (a < 1000) {
             result.add(f[0])
         }
     }
     if (a > 19999) {
-        result.add(d[a / 10000 - 1])
+        result.add(Dozens[a / 10000 - 1])
         a = a % 10000
         if (a < 1000) {
             result.add(f[0])
         }
     }
     if (a > 10999) {
-        result.add(c[(a % 10000) / 1000 - 1])
+        result.add(Elevennineteen[(a % 10000) / 1000 - 1])
         a = a % 1000
         if (a < 1000) {
             result.add(f[0])
         }
     }
-    if (a > 9999 && a < 11000) {
-        result.add(d[a / 10000 - 1])
+    if (a in 10000..10999) {
+        result.add(Dozens[a / 10000 - 1])
         a = a % 10000
         if (a < 1000) {
             result.add(f[0])
         }
     }
     if (a > 999) {
-        result.add(g[a / 1000])
+        result.add(Thousands[a / 1000])
         a = a % 1000
     }
 
     if (a > 99) {
-        result.add(e[a / 100 - 1])
+        result.add(Hundreds[a / 100 - 1])
         a = a % 100
     }
     if (a > 19 || a == 10) {
-        result.add(d[a / 10 - 1])
+        result.add(Dozens[a / 10 - 1])
         a = a % 10
     }
     if (a > 10) {
-        result.add(c[a % 10 - 1])
+        result.add(Elevennineteen[a % 10 - 1])
         a = 0
     }
     if (a > 0) {
-        result.add(b[a - 1])
+        result.add(Units[a - 1])
     }
     return result.joinToString(separator = " ")
 }

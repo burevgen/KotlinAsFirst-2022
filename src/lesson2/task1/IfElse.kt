@@ -82,13 +82,14 @@ fun ageDescription(age: Int): String = TODO()
 fun timeForHalfWay(
     t1: Double, v1: Double, t2: Double, v2: Double, t3: Double, v3: Double
 ): Double {
-    var a = v1 * t1
-    var b = t2 * v2
-    var c = t3 * v3
+    val path1 = v1 * t1
+    val path2 = t2 * v2
+    val path3 = t3 * v3
+    val distance = (path1 + path2 + path3) / 2
     when {
-        a >= (a + b + c) / 2 -> return (a + b + c) / 2 / v1
-        a < (a + b + c) / 2 && a + b >= (a + b + c) / 2 -> return (t1 + ((a + b + c) / 2 - a) / v2)
-        else -> return (t1 + t2 + ((a + b + c) / 2 - a - b) / v3)
+        path1 >= distance -> return distance / 2 / v1
+        path1 < distance && path1 + path2 >= distance -> return (t1 + (distance - path1) / v2)
+        else -> return (t1 + t2 + (distance - path1 - path2) / v3)
     }
 
 }
@@ -105,13 +106,19 @@ fun timeForHalfWay(
  */
 fun whichRookThreatens(
     kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2: Int, rookY2: Int
-): Int = when {
-    ((kingX != rookX1) && (kingY != rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 0
-    ((kingX == rookX1) || (kingY == rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 1
-    ((kingX == rookX2) || (kingY == rookY2)) && ((kingX != rookX1) && (kingY != rookY1)) -> 2
-    else -> 3
-
-
+): Int {
+    var k = 0
+    val X1Y1not = (kingX != rookX1) && (kingY != rookY1)
+    val X2Y2not = (kingX != rookX2) && (kingY != rookY2)
+    val X1Y1 = (kingX == rookX1) || (kingY == rookY1)
+    val X2Y2 = (kingX == rookX2) || (kingY == rookY2)
+    when {
+        X1Y1not && X2Y2not -> k = 0
+        X1Y1 && X2Y2not -> k = 1
+        X2Y2 && X1Y1not -> k = 2
+        else -> k = 3
+    }
+    return k
 }
 
 /**

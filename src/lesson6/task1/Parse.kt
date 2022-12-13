@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import kotlin.math.max
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -114,7 +116,18 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    var really = true
+    var unreal = false
+    var sum = -1
+    for (k in jumps.split(' ', '%', '-')) {
+        if (k.toInt() > sum) {
+            sum = k.toInt()
+        }
+        unreal = !unreal
+    }
+    return sum
+}
 
 /**
  * Сложная (6 баллов)
@@ -138,7 +151,25 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    if (!expression.matches(Regex("(\\d+ [+-] )*\\d+"))) {
+        throw IllegalArgumentException("Нарушен формат входной строки")
+    }
+    var really = true
+    var unreal = false
+    var sum = 0
+    for (k in expression.split(' ')) {
+        if (unreal) {
+            really = k == "+"
+        } else sum += k.toInt() * if (really) {
+            1
+        } else {
+            -1
+        }
+        unreal = !unreal
+    }
+    return sum
+}
 
 /**
  * Сложная (6 баллов)
@@ -164,6 +195,7 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  */
 fun mostExpensive(description: String): String = TODO()
 
+
 /**
  * Сложная (6 баллов)
  *
@@ -175,7 +207,29 @@ fun mostExpensive(description: String): String = TODO()
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    if (!roman.matches(Regex("""[IVXLCDM]+"""))) {
+        return -1
+    }
+    val number = mapOf(
+        'I' to 1,
+        'V' to 5,
+        'X' to 10,
+        'L' to 50,
+        'C' to 100,
+        'D' to 500,
+        'M' to 1000)
+    var sum = 0
+    for (k in 0..roman.length - 2) {
+        if (number[roman[k]]!! >= number[roman[k + 1]]!!) {
+            sum += number[roman[k]]!!
+        } else {
+            sum -= number[roman[k]]!!
+        }
+    }
+    sum += number[roman.last()]!!
+    return sum
+}
 
 /**
  * Очень сложная (7 баллов)
