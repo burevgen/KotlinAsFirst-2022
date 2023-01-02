@@ -276,12 +276,12 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
+val Units = listOf<String>("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+val Dozens = listOf<String>("X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+val Hundreds = listOf<String>("C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+val Thousands = listOf<String>("M")
 fun roman(n: Int): String {
     var k = n
-    val Units = listOf<String>("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
-    val Dozens = listOf<String>("X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
-    val Hundreds = listOf<String>("C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
-    val Thousands = listOf<String>("M")
     val result = mutableListOf<String>()
     if (k / 1000 > 0) {
         while (k > 999) {
@@ -317,65 +317,65 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
+val TopTen = listOf<String>("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+val Elevennineteen = listOf<String>(
+    "одиннадцать",
+    "двенадцать",
+    "тринадцать",
+    "четырнадцать",
+    "пятнадцать",
+    "шестнадцать",
+    "семнадцать",
+    "восемнадцать",
+    "девятнадцать"
+)
+val FirstHundred = listOf<String>(
+    "десять",
+    "двадцать",
+    "тридцать",
+    "сорок",
+    "пятьдесят",
+    "шестьдесят",
+    "семьдесят",
+    "восемьдесят",
+    "девяносто"
+)
+val FirstThousand = listOf<String>(
+    "сто",
+    "двести",
+    "триста",
+    "четыреста",
+    "пятьсот",
+    "шестьсот",
+    "семьсот",
+    "восемьсот",
+    "девятьсот"
+)
+val TenThousand = listOf<String>(
+    "тысяч",
+    "одна тысяча",
+    "две тысячи",
+    "три тысячи",
+    "четыре тысячи",
+    "пять тысяч",
+    "шесть тысяч",
+    "семь тысяч",
+    "восемь тысяч",
+    "девять тысяч"
+)
 fun russian(n: Int): String {
     var a = n
-    val Units = listOf<String>("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-    val Elevennineteen = listOf<String>(
-        "одиннадцать",
-        "двенадцать",
-        "тринадцать",
-        "четырнадцать",
-        "пятнадцать",
-        "шестнадцать",
-        "семнадцать",
-        "восемнадцать",
-        "девятнадцать"
-    )
-    val Dozens = listOf<String>(
-        "десять",
-        "двадцать",
-        "тридцать",
-        "сорок",
-        "пятьдесят",
-        "шестьдесят",
-        "семьдесят",
-        "восемьдесят",
-        "девяносто"
-    )
-    val Hundreds = listOf<String>(
-        "сто",
-        "двести",
-        "триста",
-        "четыреста",
-        "пятьсот",
-        "шестьсот",
-        "семьсот",
-        "восемьсот",
-        "девятьсот"
-    )
-    val Thousands = listOf<String>(
-        "тысяч",
-        "одна тысяча",
-        "две тысячи",
-        "три тысячи",
-        "четыре тысячи",
-        "пять тысяч",
-        "шесть тысяч",
-        "семь тысяч",
-        "восемь тысяч",
-        "девять тысяч"
-    )
     val f = listOf<String>("тысяч")
     val result = mutableListOf<String>()
     if (a > 99999) {
-        result.add(Hundreds[a / 100000 - 1])
+        result.add(FirstThousand[a / 100000 - 1])
         a = a % 100000
         if (a < 1000) {
             result.add(f[0])
         }
     }
     if (a > 19999) {
-        result.add(Dozens[a / 10000 - 1])
+        result.add(FirstHundred[a / 10000 - 1])
         a = a % 10000
         if (a < 1000) {
             result.add(f[0])
@@ -389,23 +389,23 @@ fun russian(n: Int): String {
         }
     }
     if (a in 10000..10999) {
-        result.add(Dozens[a / 10000 - 1])
+        result.add(FirstHundred[a / 10000 - 1])
         a = a % 10000
         if (a < 1000) {
             result.add(f[0])
         }
     }
     if (a > 999) {
-        result.add(Thousands[a / 1000])
+        result.add(TenThousand[a / 1000])
         a = a % 1000
     }
 
     if (a > 99) {
-        result.add(Hundreds[a / 100 - 1])
+        result.add(FirstThousand[a / 100 - 1])
         a = a % 100
     }
     if (a > 19 || a == 10) {
-        result.add(Dozens[a / 10 - 1])
+        result.add(FirstHundred[a / 10 - 1])
         a = a % 10
     }
     if (a > 10) {
@@ -413,7 +413,7 @@ fun russian(n: Int): String {
         a = 0
     }
     if (a > 0) {
-        result.add(Units[a - 1])
+        result.add(TopTen[a - 1])
     }
     return result.joinToString(separator = " ")
 }

@@ -200,7 +200,6 @@ fun isCoPrime(m: Int, n: Int): Boolean {
     for (a in 2..max(m, n)) {
         if (m % a == 0 && n % a == 0) {
             return false
-            break
         }
     }
     return true
