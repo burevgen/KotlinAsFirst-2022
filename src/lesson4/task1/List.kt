@@ -317,7 +317,9 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-val TopTen = listOf<String>("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+val TopTen = listOf<String>(
+    "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"
+)
 val Elevennineteen = listOf<String>(
     "одиннадцать",
     "двенадцать",
@@ -360,60 +362,56 @@ val TenThousand = listOf<String>(
     "пять тысяч",
     "шесть тысяч",
     "семь тысяч",
-    "восемь тысяч",
+    "восем тысяч",
     "девять тысяч"
 )
+
 fun russian(n: Int): String {
     var a = n
-    val f = listOf<String>("тысяч")
+    val f = listOf<String>()
     val result = mutableListOf<String>()
-    if (a > 99999) {
+    if (a / 100000 != 0) {
         result.add(FirstThousand[a / 100000 - 1])
-        a = a % 100000
-        if (a < 1000) {
-            result.add(f[0])
+        if (a / 1000 % 100 == 0) {
+            result.add(TenThousand[0])
         }
     }
-    if (a > 19999) {
-        result.add(FirstHundred[a / 10000 - 1])
-        a = a % 10000
-        if (a < 1000) {
-            result.add(f[0])
-        }
-    }
-    if (a > 10999) {
-        result.add(Elevennineteen[(a % 10000) / 1000 - 1])
-        a = a % 1000
-        if (a < 1000) {
-            result.add(f[0])
-        }
-    }
-    if (a in 10000..10999) {
-        result.add(FirstHundred[a / 10000 - 1])
-        a = a % 10000
-        if (a < 1000) {
-            result.add(f[0])
-        }
-    }
+    a %= 100000
     if (a > 999) {
-        result.add(TenThousand[a / 1000])
-        a = a % 1000
+        if (a / 10000 == 0) {
+            result.add(TenThousand[a / 1000])
+            a %= 1000
+        } else {
+            if (a / 10000 > 1) {
+                result.add(FirstHundred[a / 10000 - 1])
+                if (a / 1000 % 10 == 0) {
+                    result.add(TenThousand[0])
+                } else {
+                    result.add(TenThousand[a % 10000 / 1000])
+                }
+            } else {
+                result.add(Elevennineteen[a / 1000 % 10 - 1])
+                result.add(TenThousand[0])
+            }
+        }
     }
-
-    if (a > 99) {
+    a %= 1000
+    if (a / 100 != 0) {
         result.add(FirstThousand[a / 100 - 1])
-        a = a % 100
     }
-    if (a > 19 || a == 10) {
+    a %= 100
+    if (a / 10 > 1) {
         result.add(FirstHundred[a / 10 - 1])
-        a = a % 10
+        if (a % 10 != 0) {
+            result.add(TopTen[a % 10 - 1])
+        }
     }
-    if (a > 10) {
-        result.add(Elevennineteen[a % 10 - 1])
-        a = 0
+    if (a % 100 > 0 && a / 10 < 2) {
+        if (a / 10 == 1) {
+            result.add(Elevennineteen[a % 10 - 1])
+        } else {
+            result.add(TopTen[a % 10 - 1])
+        }
     }
-    if (a > 0) {
-        result.add(TopTen[a - 1])
-    }
-    return result.joinToString(separator = " ")
+    return result.joinToString(" ")
 }
