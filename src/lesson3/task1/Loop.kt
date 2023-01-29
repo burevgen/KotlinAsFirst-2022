@@ -244,71 +244,7 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean {
-    val j = 9
-    val i = 8
-    val h = 7
-    val g = 6
-    val f = 5
-    val e = 4
-    val d = 3
-    val c = 2
-    val b = 1
-    val a = 0
-    var aa = 0
-    var bb = 0
-    var cc = 0
-    var dd = 0
-    var ee = 0
-    var ff = 0
-    var gg = 0
-    var hh = 0
-    var ii = 0
-    var jj = 0
-    var t = 0
-    var k = n
-    if (k == a || k == b || k == c || k == d || k == e || k == f || k == g || k == h || k == i || k == j) {
-        return false
-    } else {
-        while (k > 0) {
-            t = k % 10
-            k /= 10
-            if (t == a) {
-                aa++
-            }
-            if (t == b) {
-                bb++
-            }
-            if (t == c) {
-                cc++
-            }
-            if (t == d) {
-                dd++
-            }
-            if (t == e) {
-                ee++
-            }
-            if (t == f) {
-                ff++
-            }
-            if (t == g) {
-                gg++
-            }
-            if (t == h) {
-                hh++
-            }
-            if (t == i) {
-                ii++
-            }
-            if (t == j) {
-                jj++
-            }
-        }
-    }
-    return (aa > 0 && bb > 0) || (aa > 0 && cc > 0) || (aa > 0 && dd > 0) || (aa > 0 && ee > 0) || (aa > 0 && ff > 0) || (aa > 0 && gg > 0) || (aa > 0 && hh > 0) || (aa > 0 && ii > 0) || (aa > 0 && jj > 0) || (bb > 0 && cc > 0) || (bb > 0 && dd > 0) || (bb > 0 && ee > 0) || (bb > 0 && ff > 0) || (bb > 0 && gg > 0) || (bb > 0 && hh > 0) || (bb > 0 && ii > 0) || (bb > 0 && jj > 0) || (cc > 0 && dd > 0) || (cc > 0 && ee > 0) || (cc > 0 && ff > 0) || (cc > 0 && gg > 0) || (cc > 0 && hh > 0) || (cc > 0 && ii > 0) || (cc > 0 && jj > 0) || (dd > 0 && ee > 0) || (dd > 0 && ff > 0) || (dd > 0 && gg > 0) || (dd > 0 && hh > 0) || (dd > 0 && ii > 0) || (dd > 0 && jj > 0) || (ee > 0 && ff > 0) || (ee > 0 && gg > 0) || (ee > 0 && hh > 0) || (ee > 0 && ii > 0) || (ee > 0 && jj > 0) || (ff > 0 && gg > 0) || (ff > 0 && hh > 0) || (ff > 0 && ii > 0) || (ff > 0 && jj > 0) || (gg > 0 && hh > 0) || (gg > 0 && ii > 0) || (gg > 0 && jj > 0) || (hh > 0 && ii > 0) || (hh > 0 && jj > 0) || (ii > 0 && jj > 0)
-
-
-}
+fun hasDifferentDigits(n: Int): Boolean = TODO()
 
 /**
  * Средняя (4 балла)
