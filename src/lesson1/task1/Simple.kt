@@ -118,14 +118,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double {
-    val a = initial
-    val b = percent
-    val c = a * b / 100
-    val d = b / 100.0
-    return a + c + (a + c) * d +
-            (a + c + (a + c) * d) * d
-}
+fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
 
 /**
  * Простая (2 балла)

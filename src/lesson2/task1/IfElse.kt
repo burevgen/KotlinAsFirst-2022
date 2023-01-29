@@ -81,19 +81,7 @@ fun ageDescription(age: Int): String = TODO()
  */
 fun timeForHalfWay(
     t1: Double, v1: Double, t2: Double, v2: Double, t3: Double, v3: Double
-): Double {
-    val path1 = v1 * t1
-    val path2 = t2 * v2
-    val path3 = t3 * v3
-    val distance = (path1 + path2 + path3) / 2
-    when {
-        path1 >= distance -> return distance / 2 / v1
-        path1 < distance && path1 + path2 >= distance -> return (t1 + (distance - path1) / v2)
-        else -> return (t1 + t2 + (distance - path1 - path2) / v3)
-    }
-
-}
-
+): Double = TODO()
 
 /**
  * Простая (2 балла)
@@ -166,7 +154,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when{
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     b <= d && c <= a -> b - a
     d <= b && a <= c -> d - c
     a in c..d -> d - a
