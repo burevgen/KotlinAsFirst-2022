@@ -321,6 +321,7 @@ val TopTen = listOf<String>(
     "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"
 )
 val Elevennineteen = listOf<String>(
+    "десять",
     "одиннадцать",
     "двенадцать",
     "тринадцать",
@@ -390,7 +391,7 @@ fun russian(n: Int): String {
                     result.add(TenThousand[a % 10000 / 1000])
                 }
             } else {
-                result.add(Elevennineteen[a / 1000 % 10 - 1])
+                result.add(Elevennineteen[a / 1000 % 10])
                 result.add(TenThousand[0])
             }
         }
@@ -408,7 +409,7 @@ fun russian(n: Int): String {
     }
     if (a % 100 > 0 && a / 10 < 2) {
         if (a / 10 == 1) {
-            result.add(Elevennineteen[a % 10 - 1])
+            result.add(Elevennineteen[a % 10])
         } else {
             result.add(TopTen[a % 10 - 1])
         }
