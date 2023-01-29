@@ -333,7 +333,6 @@ val Elevennineteen = listOf<String>(
     "девятнадцать"
 )
 val FirstHundred = listOf<String>(
-    "десять",
     "двадцать",
     "тридцать",
     "сорок",
@@ -384,7 +383,7 @@ fun russian(n: Int): String {
             a %= 1000
         } else {
             if (a / 10000 > 1) {
-                result.add(FirstHundred[a / 10000 - 1])
+                result.add(FirstHundred[a / 10000 - 2])
                 if (a / 1000 % 10 == 0) {
                     result.add(TenThousand[0])
                 } else {
@@ -402,7 +401,7 @@ fun russian(n: Int): String {
     }
     a %= 100
     if (a / 10 > 1) {
-        result.add(FirstHundred[a / 10 - 1])
+        result.add(FirstHundred[a / 10 - 2])
         if (a % 10 != 0) {
             result.add(TopTen[a % 10 - 1])
         }
